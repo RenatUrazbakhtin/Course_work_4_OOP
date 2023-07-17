@@ -1,20 +1,30 @@
+# импортирование нужных пакетов и модулей
 import os
 from abc import ABC, abstractmethod
 import requests, json
 
 class ApiKeys(ABC):
+    """
+    Абстрактный класс для работы с API
+    """
     @abstractmethod
     def get_vacancy(self, search):
        pass
 
 
 class HeadHunter(ApiKeys):
-
+    """
+    Класс для работы с апишкой HH
+    """
     def __init__(self, url="https://api.hh.ru/vacancies"):
         self.url = url
 
     def get_vacancy(self, search):
-
+        """
+        Получает список вакансий по поисковому запросу
+        :param search: поисковый запрос
+        :return: список вакансий
+        """
         param = {"text": search, "page_from": 0, "page_to": 50}
         request = requests.get(self.url, params=param)
         data = request.json()["items"]
@@ -58,11 +68,18 @@ class HeadHunter(ApiKeys):
 
         return vacancies
 class SuperJob(ApiKeys):
+    """
+    Класс для работы с апишкой SuperJet
+    """
     def __init__(self, url='https://api.superjob.ru/2.0/vacancies/'):
         self.url = url
 
     def get_vacancy(self, search):
-
+        """
+        Получает список вакансий по поисковому запросу
+        :param search: поисковый запрос
+        :return: список вакансий
+        """
         sj_api_key: str = os.getenv("API_KEY_FOR_SuperJet")
         headers = {'X-Api-App-Id': sj_api_key}
         param = {'keyword': search, 'count': 50}
