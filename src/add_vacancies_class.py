@@ -18,11 +18,11 @@ class JsonSaver(ABC):
         pass
 
     @abstractmethod
-    def get_vacancy_by_experience(self, search):
+    def get_vacancy_by_experience(self, search, vacancy):
         pass
 
     @abstractmethod
-    def get_vacancy_by_currency(self, search):
+    def get_vacancy_by_currency(self, search, vacancy):
         pass
 
     @abstractmethod
@@ -34,6 +34,7 @@ class JsonSaverVacancy(JsonSaver):
         with open(filename, "w") as file:
             json.dump(vacancy, file, indent=2, ensure_ascii=False)
 
+
     def get_vacancy_by_salary_average(self, search, vacancy: list):
         vacancy_list_by_salary = []
         for item in vacancy:
@@ -42,6 +43,7 @@ class JsonSaverVacancy(JsonSaver):
             elif type(item["ЗП"]["Средняя ЗП"]) == str:
                 continue
         return vacancy_list_by_salary
+
     def get_vacancy_by_salary_from(self, search, vacancy):
         vacancy_list_by_salary = []
         for item in vacancy:
@@ -50,6 +52,7 @@ class JsonSaverVacancy(JsonSaver):
             elif item["ЗП"]["От"] >= int(search):
                 vacancy_list_by_salary.append(item)
         return vacancy_list_by_salary
+
     def get_vacancy_by_salary_to(self, search, vacancy):
         vacancy_list_by_salary = []
         for item in vacancy:
@@ -59,10 +62,15 @@ class JsonSaverVacancy(JsonSaver):
                 vacancy_list_by_salary.append(item)
         return vacancy_list_by_salary
 
-    def get_vacancy_by_experience(self, search):
-        pass
+    def get_vacancy_by_experience(self, search, vacancy):
+        vacancy_list_by_experience = []
+        for item in vacancy:
+            if item["Опыт работы"] == search:
+                vacancy_list_by_experience.append(item)
+        return vacancy_list_by_experience
 
-    def get_vacancy_by_currency(self, search):
+
+    def get_vacancy_by_currency(self, search, vacancy):
         pass
 
     def delete_vacancy(self, vacancy):
@@ -70,7 +78,7 @@ class JsonSaverVacancy(JsonSaver):
 
 # def hh_exmpl():
 #     hh = HeadHunter()
-#     get_vacancy = hh.get_vacancy("Учитель")
+#     get_vacancy = hh.get_vacancy("Менеджер")
 #     return get_vacancy
 #
 # def norm_vid():
@@ -96,6 +104,11 @@ class JsonSaverVacancy(JsonSaver):
 #     a = JsonSaverVacancy()
 #     return a.get_vacancy_by_salary_to(60000, norm_vid())
 #
+# def exp():
+#     a = JsonSaverVacancy()
+#     return a.get_vacancy_by_experience("Без опыта", norm_vid())
+#
+# print(exp())
 # print(salary_to())
 # print(json_exmpl())
 # print(get_vacancy)
