@@ -34,4 +34,9 @@ def search_vacancies(search, platform):
         vacancies.append(vacancy.create_dict())
     return vacancies
 
+def save_to_json(search, platform):
+
+    saved_data = JsonSaverVacancy()
+
+    return saved_data.add_vacancy_to_file(search_vacancies(search, platform))
 
