@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 from src.vacancies_class import Vacancy
+from src.api_class import HeadHunter, SuperJob
+import json
 
 class JsonSaver(ABC):
     @abstractmethod
-    def add_vacancy_to_file(self, vacancy):
+    def add_vacancy_to_file(self, vacancy, filename="search.json"):
         pass
     @abstractmethod
-    def get_vacancy_by_salary(self, search):
+    def get_vacancy_by_salary_average(self, search, vacancy):
         pass
 
     @abstractmethod
@@ -22,11 +24,17 @@ class JsonSaver(ABC):
         pass
 
 class JsonSaverVacancy(JsonSaver):
-    def add_vacancy_to_file(self, vacancy):
-        pass
+    def add_vacancy_to_file(self, vacancy: list, filename="search.json"):
+        with open(filename, "w") as file:
+            json.dump(vacancy, file, indent=2, ensure_ascii=False)
 
-    def get_vacancy_by_salary(self, search):
-        pass
+    def get_vacancy_by_salary_average(self, search, vacancy: list):
+        vacancy_list_by_salary = []
+        for item in vacancy:
+            if item["ЗП"]["Средняя ЗП"] == int(search):
+                vacancy_list_by_salary.append(item)
+        return vacancy_list_by_salary
+
 
     def get_vacancy_by_experience(self, search):
         pass
@@ -36,6 +44,34 @@ class JsonSaverVacancy(JsonSaver):
 
     def delete_vacancy(self, vacancy):
         pass
+
+# def hh_exmpl():
+#     hh = HeadHunter()
+#     get_vacancy = hh.get_vacancy("Python")
+#     return get_vacancy
+#
+# def norm_vid():
+#     new_list = []
+#     for item in hh_exmpl():
+#         vacancy = Vacancy(item)
+#         new_list.append(vacancy.create_dict())
+#     return new_list
+#
+# def json_asd():
+#     a = JsonSaverVacancy()
+#     a.add_vacancy_to_file(norm_vid())
+#     return a
+# def json_exmpl():
+#     a = JsonSaverVacancy()
+#     return a.get_vacancy_by_salary(40000, norm_vid())
+#
+# print(json_exmpl())
+# print(get_vacancy)
+# new_list = []
+# for item in get_vacancy:
+#     vacancy = Vacancy(item)
+#     new_list.append(vacancy.create_dict())
+
 
 #запись в файл
 #достаем
