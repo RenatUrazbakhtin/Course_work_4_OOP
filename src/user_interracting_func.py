@@ -1,24 +1,38 @@
+# Импортирование необходимых пакетов
 import json
-
 from src.api_class import HeadHunter, SuperJob
 from src.add_vacancies_class import JsonSaverVacancy
 from src.vacancies_class import Vacancy
 
 def get_HH_vacancies(search):
-
+    """
+    Функция для создания списка словарей вакансий HH
+    :param search: поисковый запрос пользователя
+    :return: список словарей вакансий
+    """
     hh = HeadHunter()
     hh_data = hh.get_vacancy(search)
 
     return hh_data
 
 def get_SJ_vacancies(search):
-
+    """
+    Функция для создания списка словарей вакансий SuperJet
+    :param search: поисковый запрос пользователя
+    :return: список словарей вакансий
+    """
     sj = SuperJob()
     sj_data = sj.get_vacancy(search)
 
     return sj_data
 
 def search_vacancies(search, platform):
+    """
+    Функция для создания читаемого для пользователя списка словарей
+    :param search: поисковый запрос
+    :param platform: платформа для поиска(HH, SJ, обе)
+    :return: читаемый список словарей
+    """
     vacancies_data = []
 
     if platform == 1:
@@ -36,12 +50,21 @@ def search_vacancies(search, platform):
     return vacancies
 
 def save_to_json(search: str, platform):
-
+    """
+    Сохранение данных о вакансиях в файл search.json
+    :param search: поисковый запрос пользователя
+    :param platform: платформа для поиска(HH, SJ, обе)
+    :return: файл search.json
+    """
     saved_data = JsonSaverVacancy()
 
     return saved_data.add_vacancy_to_file(search_vacancies(search, platform)), saved_data
 
 def interaction_func():
+    """
+    функция для взаимодействия с пользователем и объединения всех сделанных классов и функций
+    :return: None
+    """
     print("Здравствуйте, данная программа предназначена для поиска вакансий")
 
     while True:
@@ -54,7 +77,6 @@ def interaction_func():
     search = str(input("Введите ключевое слово для поиска \n"))
 
     print("Подобранные вакансии расположены в файле 'search.json'")
-    vacancies = save_to_json(search, platform)
     atribute_jsonsaver = save_to_json(search, platform)[1]
     copy_atribute_jsonsaver = atribute_jsonsaver
     for i in range(1000):
