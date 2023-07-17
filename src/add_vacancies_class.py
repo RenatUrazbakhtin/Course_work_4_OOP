@@ -65,7 +65,7 @@ class JsonSaverVacancy(JsonSaver):
     def get_vacancy_by_experience(self, search, vacancy):
         vacancy_list_by_experience = []
         for item in vacancy:
-            if item["Опыт работы"] == search:
+            if item["Опыт работы"].lower() == search:
                 vacancy_list_by_experience.append(item)
         return vacancy_list_by_experience
 
@@ -73,7 +73,7 @@ class JsonSaverVacancy(JsonSaver):
     def get_vacancy_by_currency(self, search, vacancy):
         vacancy_list_by_currency = []
         for item in vacancy:
-            if item["Валюта"] == search:
+            if item["ЗП"]["Валюта"] == str(search):
                 vacancy_list_by_currency.append(item)
         return vacancy_list_by_currency
 
