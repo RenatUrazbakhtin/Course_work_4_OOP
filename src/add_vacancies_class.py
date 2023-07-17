@@ -58,7 +58,7 @@ class JsonSaverVacancy(JsonSaver):
         for item in vacancy:
             if type(item["ЗП"]["До"]) == str:
                 continue
-            elif item["ЗП"]["До"] == int(search):
+            elif item["ЗП"]["До"] <= int(search):
                 vacancy_list_by_salary.append(item)
         return vacancy_list_by_salary
 
@@ -78,50 +78,6 @@ class JsonSaverVacancy(JsonSaver):
         return vacancy_list_by_currency
 
     def delete_vacancy(self, vacancy):
-        pass
-
-# def hh_exmpl():
-#     hh = HeadHunter()
-#     get_vacancy = hh.get_vacancy("Менеджер")
-#     return get_vacancy
-#
-# def norm_vid():
-#     new_list = []
-#     for item in hh_exmpl():
-#         vacancy = Vacancy(item)
-#         new_list.append(vacancy.create_dict())
-#     return new_list
-#
-# def json_asd():
-#     a = JsonSaverVacancy()
-#     a.add_vacancy_to_file(norm_vid())
-#     return a
-# def json_exmpl():
-#     a = JsonSaverVacancy()
-#     return a.get_vacancy_by_salary_average(20000, norm_vid())
-#
-# def salary_from():
-#     a = JsonSaverVacancy()
-#     return a.get_vacancy_by_salary_from(20000, norm_vid())
-#
-# def salary_to():
-#     a = JsonSaverVacancy()
-#     return a.get_vacancy_by_salary_to(60000, norm_vid())
-#
-# def exp():
-#     a = JsonSaverVacancy()
-#     return a.get_vacancy_by_experience("Без опыта", norm_vid())
-#
-# print(exp())
-# print(salary_to())
-# print(json_exmpl())
-# print(get_vacancy)
-# new_list = []
-# for item in get_vacancy:
-#     vacancy = Vacancy(item)
-#     new_list.append(vacancy.create_dict())
+       pass
 
 
-#запись в файл
-#достаем
-#чистка
