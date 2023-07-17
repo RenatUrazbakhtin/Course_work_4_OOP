@@ -71,7 +71,11 @@ class JsonSaverVacancy(JsonSaver):
 
 
     def get_vacancy_by_currency(self, search, vacancy):
-        pass
+        vacancy_list_by_currency = []
+        for item in vacancy:
+            if item["Валюта"] == search:
+                vacancy_list_by_currency.append(item)
+        return vacancy_list_by_currency
 
     def delete_vacancy(self, vacancy):
         pass
