@@ -4,7 +4,6 @@ from src.api_class import HeadHunter, SuperJob
 from src.add_vacancies_class import JsonSaverVacancy
 from src.vacancies_class import Vacancy
 
-#ЗП от. ЗП до, средняя ЗП. валюта, Опыт. сравнение зп средней
 def get_HH_vacancies(search):
 
     hh = HeadHunter()
@@ -42,16 +41,6 @@ def save_to_json(search: str, platform):
 
     return saved_data.add_vacancy_to_file(search_vacancies(search, platform)), saved_data
 
-def average_salary():
-    pass
-def salary_from():
-    pass
-def salary_to():
-    pass
-def experience():
-    pass
-def currency():
-    pass
 def interaction_func():
     print("Здравствуйте, данная программа предназначена для поиска вакансий")
 
