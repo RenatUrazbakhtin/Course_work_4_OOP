@@ -86,7 +86,9 @@ def interaction_func():
             break
         elif do_u_want_filter.lower() == "да" or do_u_want_filter.lower() == "yes":
             user_answer = int(input("Выберите желаемую фильтрацию (1 - Уровень средней ЗП, 2 - ЗП от, 3 - ЗП до, 4 - Валюта ЗП, 5 - Опыт работы)\n"))
-
+            if user_answer != 1 or user_answer != 2 or user_answer != 3 or user_answer != 4 or user_answer != 5:
+                print("Введен неверный фильтр, выполните новый запуск программы")
+                break
             if user_answer == 1:
                 while True:
                     user_average_salary = int(input("Введите желаемый уровень средней ЗП\n"))
