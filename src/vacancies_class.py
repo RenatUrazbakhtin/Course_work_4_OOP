@@ -1,8 +1,8 @@
-import json
-from src.api_class import HeadHunter, SuperJob
-
 
 class Vacancy:
+    """
+    Класс для работы с вакансиями и их записи в читаемый вид
+    """
     def __init__(self, vacancy_dict: dict):
         self.vacancy_name = vacancy_dict["name"]
         self.vacancy_url = vacancy_dict["url"]
@@ -45,6 +45,10 @@ class Vacancy:
             return False
 
     def create_dict(self):
+        """
+        Создания читаемого для пользователя списка словарей с вакансиями
+        :return: список словарей
+        """
         dictionary = {
             "Ваканcия": self.vacancy_name,
             "Ссылка": self.vacancy_url,
