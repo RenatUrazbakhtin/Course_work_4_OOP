@@ -57,7 +57,8 @@ class Vacancy:
                 "Валюта": self.currency
             }
         }
-        return json.dumps(dictionary, indent=2, ensure_ascii=False)
+        return dictionary
+        # return json.dumps(dictionary, indent=2, ensure_ascii=False)
 
 
 
