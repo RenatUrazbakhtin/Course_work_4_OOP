@@ -31,4 +31,3 @@ https://api.superjob.ru/
 https://api.superjob.ru/info/
 
 4) Установить полученный ключ в переменные среды с названием "API_KEY_FOR_SuperJet".
-Установить полученный ключ в переменные среды с названием "SJ_API_KEY".
