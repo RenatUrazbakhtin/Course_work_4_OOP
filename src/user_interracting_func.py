@@ -86,7 +86,7 @@ def interaction_func():
             break
         elif do_u_want_filter.lower() == "да" or do_u_want_filter.lower() == "yes":
             user_answer = int(input("Выберите желаемую фильтрацию (1 - Уровень средней ЗП, 2 - ЗП от, 3 - ЗП до, 4 - Валюта ЗП, 5 - Опыт работы)\n"))
-            if user_answer != 1 or user_answer != 2 or user_answer != 3 or user_answer != 4 or user_answer != 5:
+            if int(user_answer) != 1 and int(user_answer) != 2 and int(user_answer) != 3 and int(user_answer) != 4 and int(user_answer) != 5:
                 print("Введен неверный фильтр, выполните новый запуск программы")
                 break
             if user_answer == 1:
@@ -189,4 +189,23 @@ def interaction_func():
                         print("С подобными фильтрами вакансий не найдено")
                     else:
                         print(json.dumps(copy_vacancy_by_experience, indent=2, ensure_ascii=False))
+    else:
+        print("Введен неверный фильтр, выполните новый запуск программы")
+
+    while True:
+        user_input = input("Хотите удалить вакансии из файла 'search.json'?(1 - Все, 2 - По ключевому слову, 3 - Нет)\n")
+        if int(user_input) != 1 and int(user_input) != 2 and int(user_input) != 3:
+            print("Введите корректное значение")
+        elif int(user_input) == 1:
+            example_for_delete = save_to_json(search, platform)[1]
+            example_for_delete.delete_vacancy()
+            break
+        elif int(user_input) == 2:
+            example_for_delete = save_to_json(search, platform)[1]
+            user_search = input("Введите ключевое слово ")
+            example_for_delete.delete_search_vacancies(user_search)
+            print("Вакансии записаны в файле search.json")
+            break
+        elif int(user_input) == 3:
+            quit()
 
