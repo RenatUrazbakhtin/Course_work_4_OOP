@@ -30,7 +30,7 @@ class JsonSaver(ABC):
         pass
 
     @abstractmethod
-    def delete_vacancy(self, vacancy):
+    def delete_vacancy(self):
         pass
 
 class JsonSaverVacancy(JsonSaver):
@@ -117,7 +117,22 @@ class JsonSaverVacancy(JsonSaver):
                 vacancy_list_by_currency.append(item)
         return vacancy_list_by_currency
 
-    def delete_vacancy(self, vacancy):
-       pass
+    def delete_vacancy(self):
+       with open('search.json', "wt") as file:
+        file.write("")
+
+    def delete_search_vacancies(self, search):
+        with open('search.json') as file:
+            dicts = json.load(file)
+            new_dict = []
+            for item in dicts:
+                if search.capitalize() in item.values():
+                    pass
+                else:
+                    new_dict.append(item)
+
+        with open('search.json', 'w') as file:
+            json.dump(new_dict, file, indent=2, ensure_ascii=False)
+
 
 
