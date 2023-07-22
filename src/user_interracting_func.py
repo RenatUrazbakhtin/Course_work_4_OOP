@@ -47,7 +47,7 @@ def search_vacancies(search, platform):
     for item in vacancies_data:
         vacancy = Vacancy(item)
         vacancies.append(vacancy.create_dict())
-    return vacancies
+    return vacancies, vacancies_data
 
 def save_to_json(search: str, platform):
     """
@@ -58,7 +58,7 @@ def save_to_json(search: str, platform):
     """
     saved_data = JsonSaverVacancy()
 
-    return saved_data.add_vacancy_to_file(search_vacancies(search, platform)), saved_data
+    return saved_data.add_vacancy_to_file(search_vacancies(search, platform)[0]), saved_data
 
 def interaction_func():
     """
@@ -77,6 +77,31 @@ def interaction_func():
     search = str(input("Введите ключевое слово для поиска \n"))
 
     print("Подобранные вакансии расположены в файле 'search.json'")
+    atribute_jsonsaver = save_to_json(search, platform)[1]
+    while True:
+        user_input_avg_salary = input("Сравнить вакансии по средней ЗП?(да/нет)\n")
+        if user_input_avg_salary.lower() == "да":
+            data_vacancies = search_vacancies(search, platform)[1]
+            first = input("Введите первую вакансию\n")
+            second = input("Введите вторую вакансию\n")
+            for vacancy in data_vacancies:
+                if Vacancy(vacancy).vacancy_name == first:
+                    first_vacancy = vacancy
+                if Vacancy(vacancy).vacancy_name == second:
+                    second_vacancy = vacancy
+            try:
+                if Vacancy(first_vacancy) >= Vacancy(second_vacancy):
+                    print(f"Средняя заработная плата у вакансии {first} больше чем у вакансии {second} ")
+                else:
+                    print(f"Средняя заработная плата у вакансии {first} меньше, чем у {second}")
+            except UnboundLocalError:
+                print("Не найдено вакансий с таким именем")
+                break
+        elif user_input_avg_salary.lower() == "нет":
+            break
+        else:
+            print("Введите да/нет\n")
+
     atribute_jsonsaver = save_to_json(search, platform)[1]
     copy_atribute_jsonsaver = atribute_jsonsaver
     for i in range(1000):
@@ -118,12 +143,12 @@ def interaction_func():
                     else:
                         break
                 if i == 0:
-                    vacancy_by_salary_from = atribute_jsonsaver.get_vacancy_by_salary_from(user_salary_from, search_vacancies(search, platform))
+                    vacancy_by_salary_from = atribute_jsonsaver.get_vacancy_by_salary_from(user_salary_from, search_vacancies(search, platform)[0])
                     if vacancy_by_salary_from == []:
                         print("Вакансий с подобным фильтром не найдено")
                     print(json.dumps(vacancy_by_salary_from, indent=2, ensure_ascii=False))
                 else:
-                    vacancy_by_salary_from = atribute_jsonsaver.get_vacancy_by_salary_from(user_salary_from, search_vacancies(search, platform))
+                    vacancy_by_salary_from = atribute_jsonsaver.get_vacancy_by_salary_from(user_salary_from, search_vacancies(search, platform)[0])
                     copy_vacancy_by_salary_from = atribute_jsonsaver.get_vacancy_by_salary_from(user_salary_from, vacancy_by_salary_from)
                     if copy_vacancy_by_salary_from == []:
                         print("С подобными фильтрами вакансий не найдено")
@@ -138,12 +163,12 @@ def interaction_func():
                     else:
                         break
                 if i == 0:
-                    vacancy_by_salary_to = atribute_jsonsaver.get_vacancy_by_salary_to(user_salary_to, search_vacancies(search, platform))
+                    vacancy_by_salary_to = atribute_jsonsaver.get_vacancy_by_salary_to(user_salary_to, search_vacancies(search, platform)[0])
                     if vacancy_by_salary_to == []:
                         print("Вакансий с подобным фильтром не найдено")
                     print(json.dumps(vacancy_by_salary_to, indent=2, ensure_ascii=False))
                 else:
-                    vacancy_by_salary_to = atribute_jsonsaver.get_vacancy_by_salary_to(user_salary_to, search_vacancies(search, platform))
+                    vacancy_by_salary_to = atribute_jsonsaver.get_vacancy_by_salary_to(user_salary_to, search_vacancies(search, platform)[0])
                     copy_vacancy_by_salary_to = atribute_jsonsaver.get_vacancy_by_salary_to(user_salary_to, vacancy_by_salary_to)
                     if copy_vacancy_by_salary_to == []:
                         print("С подобными фильтрами вакансий не найдено")
@@ -158,12 +183,12 @@ def interaction_func():
                     else:
                         break
                 if i == 0:
-                    vacancy_by_currency = atribute_jsonsaver.get_vacancy_by_currency(user_salary_currency, search_vacancies(search, platform))
+                    vacancy_by_currency = atribute_jsonsaver.get_vacancy_by_currency(user_salary_currency, search_vacancies(search, platform)[0])
                     if vacancy_by_currency == []:
                         print("Вакансий с подобным фильтром не найдено")
                     print(json.dumps(vacancy_by_currency, indent=2, ensure_ascii=False))
                 else:
-                    vacancy_by_currency = atribute_jsonsaver.get_vacancy_by_currency(user_salary_currency, search_vacancies(search, platform))
+                    vacancy_by_currency = atribute_jsonsaver.get_vacancy_by_currency(user_salary_currency, search_vacancies(search, platform)[0])
                     copy_vacancy_by_currency = atribute_jsonsaver.get_vacancy_by_currency(user_salary_currency, vacancy_by_currency)
                     if copy_vacancy_by_currency == []:
                         print("С подобными фильтрами вакансий не найдено")
@@ -178,12 +203,12 @@ def interaction_func():
                     else:
                         break
                 if i == 0:
-                    vacancy_by_experience = atribute_jsonsaver.get_vacancy_by_experience(user_experience, search_vacancies(search, platform))
+                    vacancy_by_experience = atribute_jsonsaver.get_vacancy_by_experience(user_experience, search_vacancies(search, platform)[0])
                     if vacancy_by_experience == []:
                         print("Вакансий с подобным фильтром не найдено")
                     print(json.dumps(vacancy_by_experience, indent=2, ensure_ascii=False))
                 else:
-                    vacancy_by_experience = atribute_jsonsaver.get_vacancy_by_experience(user_experience, search_vacancies(search, platform))
+                    vacancy_by_experience = atribute_jsonsaver.get_vacancy_by_experience(user_experience, search_vacancies(search, platform)[0])
                     copy_vacancy_by_experience = atribute_jsonsaver.get_vacancy_by_experience(user_experience, vacancy_by_experience)
                     if copy_vacancy_by_experience == []:
                         print("С подобными фильтрами вакансий не найдено")
