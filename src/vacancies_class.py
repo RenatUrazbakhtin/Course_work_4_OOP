@@ -21,28 +21,32 @@ class Vacancy:
             self.average_salary = round((self.max_salary + self.min_salary)/2)
 
     def __le__(self, other):
-        if self.average_salary <= other.average_salary:
-            return True
-        else:
-            return False
+        if isinstance(other, Vacancy):
+            if self.average_salary <= other.average_salary:
+                return True
+            else:
+                return False
 
     def __ge__(self, other):
-        if self.average_salary >= other.average_salary:
-            return True
-        else:
-            return False
+        if isinstance(other, Vacancy):
+            if self.average_salary >= other.average_salary:
+                return True
+            else:
+                return False
 
     def __lt__(self, other):
-        if self.average_salary < other.average_salary:
-            return True
-        else:
-            return False
+        if isinstance(other, Vacancy):
+            if self.average_salary < other.average_salary:
+                return True
+            else:
+                return False
 
     def __gt__(self, other):
-        if self.average_salary > other.average_salary:
-            return True
-        else:
-            return False
+        if isinstance(other, Vacancy):
+            if self.average_salary > other.average_salary:
+                return True
+            else:
+                return False
 
     def create_dict(self):
         """
@@ -62,6 +66,7 @@ class Vacancy:
             }
         }
         return dictionary
+
 
 
 
