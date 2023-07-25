@@ -79,11 +79,11 @@ def interaction_func():
     print("Подобранные вакансии расположены в файле 'search.json'")
     atribute_jsonsaver = save_to_json(search, platform)[1]
     while True:
-        user_input_avg_salary = input("Сравнить вакансии по средней ЗП?(да/нет)\n")
+        user_input_avg_salary = input("Сравнить вакансии по средней ЗП из файла 'search.json'? (да/нет)\n")
         if user_input_avg_salary.lower() == "да":
             data_vacancies = search_vacancies(search, platform)[1]
-            first = input("Введите первую вакансию\n")
-            second = input("Введите вторую вакансию\n")
+            first = input("Введите полное название первой вакансии\n")
+            second = input("Введите полное название второй вакансии\n")
             for vacancy in data_vacancies:
                 if Vacancy(vacancy).vacancy_name == first:
                     first_vacancy = vacancy
@@ -122,13 +122,13 @@ def interaction_func():
                     else:
                         break
                 if i == 0:
-                    vacancy_by_average_salary = atribute_jsonsaver.get_vacancy_by_salary_average(user_average_salary, search_vacancies(search, platform))
+                    vacancy_by_average_salary = atribute_jsonsaver.get_vacancy_by_salary_average(int(user_average_salary), search_vacancies(search, platform)[0])
                     if vacancy_by_average_salary == []:
                         print("Вакансий с подобным фильтром не найдено")
                     print(json.dumps(vacancy_by_average_salary, indent=2, ensure_ascii=False))
                 else:
-                    vacancy_by_average_salary = atribute_jsonsaver.get_vacancy_by_salary_average(user_average_salary, search_vacancies(search, platform))
-                    copy_vacancy_average = atribute_jsonsaver.get_vacancy_by_salary_average(user_average_salary, vacancy_by_average_salary)
+                    vacancy_by_average_salary = atribute_jsonsaver.get_vacancy_by_salary_average(int(user_average_salary), search_vacancies(search, platform)[0])
+                    copy_vacancy_average = atribute_jsonsaver.get_vacancy_by_salary_average(int(user_average_salary), vacancy_by_average_salary)
                     if copy_vacancy_average == []:
                         print("С подобными фильтрами вакансий не найдено")
                     else:
@@ -227,9 +227,9 @@ def interaction_func():
             break
         elif int(user_input) == 2:
             example_for_delete = save_to_json(search, platform)[1]
-            user_search = input("Введите ключевое слово ")
+            user_search = input("Введите полное название вакансии из файла 'search.json' ")
             example_for_delete.delete_search_vacancies(user_search)
-            print("Вакансии записаны в файле search.json")
+            print("Вакансии перезаписаны в файл search.json")
             break
         elif int(user_input) == 3:
             quit()
